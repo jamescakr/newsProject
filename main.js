@@ -11,7 +11,7 @@ const getLatestNews = async () => {
   // );
 
   const url = new URL(
-    `https://james-news-project.netlify.app/top-headlines?country=us&pageSize=${pageSize}&page=${page}${category}${keyword}`
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&pageSize=${pageSize}&page=${page}${category}${keyword}`
   );
 
   const response = await fetch(url);
