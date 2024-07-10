@@ -56,11 +56,11 @@
 
 .side-menu {
   height: 100%;
-  width: 250px;
+  width: 180px;
   position: fixed;
   top: 0;
   left: -250px;
-  background-color: #9a9a9a;
+  background-color: rgba(154, 154, 154, 0.7);
   overflow-x: hiddens;
   transition: 0.5s;
   padding-top: 60px;

@@ -5,13 +5,31 @@ let category = "";
 let keyword = "";
 let pageSize = 10;
 
+const menus = document.querySelectorAll(".menus button");
+menus.forEach((menu) =>
+  menu.addEventListener("click", (event) => getNewsByCategory(event))
+);
+
+const sideMenu = document.querySelectorAll(".side-menu a");
+sideMenu.forEach((item) =>
+  item.addEventListener("click", (event) => getNewsByCategory(event))
+);
+
+let searchInput = document.getElementById("search-input");
+searchInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    getNewsByKeyword();
+  }
+});
+
 const getLatestNews = async () => {
   // const url = new URL(
   //   `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
   // );
 
+  //과제제출용
   const url = new URL(
-    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&pageSize=${pageSize}&page=${page}${category}${keyword}`
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${pageSize}&page=${page}${category}${keyword}`
   );
 
   const response = await fetch(url);
@@ -19,6 +37,42 @@ const getLatestNews = async () => {
   newsList = data.articles;
   render();
   console.log("dddd", newsList);
+};
+
+const getNewsByCategory = async (event) => {
+  const category = event.target.textContent.toLowerCase();
+  console.log("category", category);
+  // const url = new URL(
+  //   `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+  // );
+
+  //과제제출용
+  const url = new URL(
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+  );
+  const response = await fetch(url);
+  let data = await response.json();
+  console.log("data", data);
+  newsList = data.articles;
+  render();
+};
+
+const getNewsByKeyword = async () => {
+  const keyword = document.getElementById("search-input").value;
+  console.log("keyword", keyword);
+  // const url = new URL(
+  //   `https://newsapi.org/v2/top-headlines?country=us&q=${keyword}&apiKey=${API_KEY}`
+  // );
+
+  //과제제출용
+  const url = new URL(
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`
+  );
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log("keyword data", data);
+  newsList = data.articles;
+  render();
 };
 
 const render = () => {
@@ -77,4 +131,9 @@ function toggleSearchIcon() {
   } else {
     searchBar.style.display = "none";
   }
+}
+
+function cleanSearch() {
+  let searchInput = document.getElementById("search-input");
+  searchInput.value = "";
 }
